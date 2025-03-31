@@ -1,10 +1,10 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50">
+  <div class="min-h-screen bg-gradient-to-b from-slate-200 to-yellow-50">
     <AppDrawer />
     <!-- <FloatingHomeButton /> -->
     <FloatingSearchButton />
     <!-- Hero Section -->
-    <div class="bg-red-600 shadow-lg relative overflow-hidden">
+    <div class="bg-gradient-to-b from-red-500 to-red-800 shadow-lg relative overflow-hidden">
       <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
         <div class="md:w-1/2 z-10">
           <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Gotta Catch 'Em All!</h1>
@@ -117,6 +117,7 @@
       </section>
     </main>
   </div>
+  <MainFooter />
 </template>
 
 <script setup>

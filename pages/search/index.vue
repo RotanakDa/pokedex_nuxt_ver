@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50">
+  <div class="min-h-screen bg-gradient-to-b  from-orange-200 to-violet-200">
     <AppDrawer />
     <FloatingHomeButton />
     <div class="container mx-auto px-4 py-8">

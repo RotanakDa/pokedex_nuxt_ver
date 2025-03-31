@@ -3,7 +3,7 @@
       <!-- Hamburger Button -->
       <button 
         @click="isOpen = !isOpen"
-        class="fixed top-4 left-4 z-50 p-2 rounded-md bg-red-500 text-white shadow-lg"
+        class="fixed top-4 left-4 z-50 p-2 rounded-md bg-red-800 text-white shadow-lg"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -20,7 +20,7 @@
       <!-- Drawer Content -->
       <aside 
         :class="{'translate-x-0': isOpen, '-translate-x-full': !isOpen}"
-        class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out"
+        class="fixed top-0 left-0 w-64 h-full bg-gradient-to-b from-yellow-50 to-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out"
       >
       <br>
       <br>

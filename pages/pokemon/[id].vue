@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50">
+    <div class="min-h-screen bg-gradient-to-b from-blue-200 to-yellow-100">
       <AppDrawer />
       <FloatingHomeButton />
       <!-- <FloatingSearchButton /> -->
@@ -32,11 +32,11 @@
                   :alt="pokemon.name"
                   class="w-full h-64 object-contain mx-auto"
                 >
-                <div class="absolute inset-0 flex items-center justify-center opacity-10">
+                <!-- <div class="absolute inset-0 flex items-center justify-center opacity-10">
                   <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="10"/>
                   </svg>
-                </div>
+                </div> -->
               </div>
   
               <!-- Pokemon Stats -->
