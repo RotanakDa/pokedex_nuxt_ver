@@ -22,8 +22,11 @@
         :class="{'translate-x-0': isOpen, '-translate-x-full': !isOpen}"
         class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out"
       >
+      <br>
+      <br>
+      <br>
         <div class="p-4 border-b">
-          <h2 class="text-xl font-bold text-gray-800">Pokédex</h2>
+          <h2 class="text-xl font-bold text-gray-800">Pokédex By Rotanak</h2>
         </div>
         
         <nav class="p-4">

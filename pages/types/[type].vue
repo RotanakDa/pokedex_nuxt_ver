@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen bg-gray-50">
       <AppDrawer />
-      
+      <FloatingHomeButton />
       <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-2 capitalize">{{ type }} Pokémon</h1>
         <p class="text-gray-600 mb-8">Showing Pokémon of type {{ type }}</p>

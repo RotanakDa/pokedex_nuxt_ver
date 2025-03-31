@@ -1,5 +1,5 @@
 <template>
-  <div class="relative max-w-2xl mx-auto">
+  <div class="relative">
     <input
       type="text"
       v-model="searchQuery"
@@ -34,6 +34,7 @@
             class="w-8 h-8 mr-2"
           >
           {{ suggestion.name }}
+          <span class="ml-auto text-gray-500 text-sm">#{{ suggestion.id.toString().padStart(3, '0') }}</span>
         </li>
       </ul>
     </div>
@@ -58,7 +59,7 @@ const fetchSuggestions = async () => {
     const data = await response.json()
     const matches = data.results.filter(p => 
       p.name.includes(searchQuery.value.toLowerCase())
-    ).slice(0, 5)
+    ).slice(0, 8) // Show more suggestions
     
     suggestions.value = matches.map(p => ({
       name: p.name,

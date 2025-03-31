@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50">
     <AppDrawer />
-    
+    <!-- <FloatingHomeButton /> -->
+    <FloatingSearchButton />
     <!-- Hero Section -->
     <div class="bg-red-600 shadow-lg relative overflow-hidden">
       <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center">

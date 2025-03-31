@@ -2,6 +2,7 @@
   <div 
     class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border-2 border-gray-200 group"
     :class="`hover:border-${getTypeColor(pokemon.types[0])}-400`"
+     @click="$emit('view', pokemon.id)"
   >
     <!-- Pokemon Image with Background -->
     <div 
@@ -38,7 +39,7 @@
       </div>
 
       <!-- View Button -->
-      <button 
+      <!-- <button 
         class="mt-4 w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white py-2 rounded-md transition-all duration-200 flex items-center justify-center group"
         @click="$emit('view', pokemon.id)"
       >
@@ -46,7 +47,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
