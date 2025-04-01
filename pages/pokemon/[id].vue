@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-50">
     <AppDrawer />
-    
+    <FloatingHomeButton />
     <div class="container mx-auto px-4 py-8">
       <div v-if="loading" class="text-center py-12">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500 mx-auto"></div>
@@ -66,47 +66,56 @@
                   <p>{{ species.capture_rate || 'N/A' }}</p>
                 </div>
               </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- About Section -->
+          <div class="bg-white rounded-xl shadow-lg p-6">
+              <h2 class="text-2xl font-bold mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                About
+              </h2>
               
-            <!-- About Section -->
-          <div class="bg-white rounded-xl shadow-lg p-2">
-            <h2 class="text-2xl font-bold mb-4 flex items-center">
-              <span class="text-blue-500 mr-2">ℹ️</span>
-              About
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <h3 class="font-semibold text-gray-600">Height</h3>
-                <p>{{ pokemon.height / 10 }} m</p>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-600">Weight</h3>
-                <p>{{ pokemon.weight / 10 }} kg</p>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-600">Abilities</h3>
-                <div class="flex flex-wrap gap-1 mt-1">
+              <!-- Abilities -->
+              <div class="mb-4">
+                <h3 class="font-semibold text-gray-600 mb-2">Abilities</h3>
+                <div class="flex flex-wrap gap-2">
                   <span 
                     v-for="ability in pokemon.abilities" 
                     :key="ability.ability.name"
-                    class="px-2 py-1 bg-gray-100 rounded-full text-xs capitalize"
+                    class="px-3 py-1 bg-gray-100 rounded-full text-sm capitalize"
                   >
                     {{ ability.ability.name.replace('-', ' ') }}
                     <span v-if="ability.is_hidden" class="text-xs text-gray-500 ml-1">(hidden)</span>
                   </span>
                 </div>
               </div>
-              <div>
-                <h3 class="font-semibold text-gray-600">Base Experience</h3>
-                <p>{{ pokemon.base_experience }}</p>
+  
+              <!-- Habitat and Egg Groups -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h3 class="font-semibold text-gray-600">Habitat</h3>
+                  <p class="capitalize">{{ species.habitat?.name || 'Unknown' }}</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Egg Groups</h3>
+                  <div class="flex flex-wrap gap-1">
+                    <span 
+                      v-for="group in species.egg_groups" 
+                      :key="group.name"
+                      class="px-2 py-0.5 bg-gray-100 rounded-full text-xs capitalize"
+                    >
+                      {{ group.name.replace('-', ' ') }}
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          </div>
-        </div>
-
-        <!-- Right Column -->
-        <div class="lg:col-span-2 space-y-6">
           
           <PokemonWeakness :types="pokemon.types.map(t => t.type.name)" />
 
@@ -152,14 +161,19 @@
                     Lv. {{ move.version_group_details[0].level_learned_at }}
                   </span>
                   <span class="flex items-center">
-                    <span v-if="isPhysicalMove(move)" class="flex items-center mr-2">
+                    <span v-if="moveDetails[move.move.name]?.damage_class === 'physical'" class="flex items-center mr-2">
                       <span class="text-red-500 mr-1">💪</span>
                       Physical
                     </span>
-                    <span v-if="isSpecialMove(move)" class="flex items-center">
+                    <span v-else-if="moveDetails[move.move.name]?.damage_class === 'special'" class="flex items-center mr-2">
                       <span class="text-blue-500 mr-1">✨</span>
                       Special
                     </span>
+                    <span v-else-if="moveDetails[move.move.name]?.damage_class === 'status'" class="flex items-center">
+                      <span class="text-green-500 mr-1">⚙️</span>
+                      Status
+                    </span>
+                    <span v-else class="text-gray-400">Loading...</span>
                   </span>
                 </div>
               </div>
@@ -220,6 +234,7 @@ const evolutionChain = ref([])
 const evolutionDetails = ref([])
 const loading = ref(true)
 const moveFilter = ref('all')
+const moveDetails = ref({}) // Store fetched move details
 
 const moveFilters = [
   { value: 'all', label: 'All Moves' },
@@ -241,12 +256,35 @@ onMounted(async () => {
       evolutionChain.value = chain
       evolutionDetails.value = details
     }
+
+    // Fetch move details for each move
+    fetchMovesDetails()
   } catch (error) {
     console.error('Error fetching Pokemon details:', error)
   } finally {
     loading.value = false
   }
 })
+
+// Fetch details for all moves
+const fetchMovesDetails = async () => {
+  if (!pokemon.value?.moves) return
+
+  for (const moveEntry of pokemon.value.moves) {
+    try {
+      const response = await fetch(moveEntry.move.url)
+      const data = await response.json()
+      moveDetails.value[moveEntry.move.name] = {
+        type: data.type.name,
+        damage_class: data.damage_class.name, // 'physical', 'special', or 'status'
+        power: data.power,
+        accuracy: data.accuracy
+      }
+    } catch (error) {
+      console.error(`Error fetching details for move ${moveEntry.move.name}:`, error)
+    }
+  }
+}
 
 const parseEvolutionChain = (chain) => {
   const evolutions = []
@@ -301,32 +339,13 @@ const filteredMoves = computed(() => {
 })
 
 const getMoveTypeClass = (move) => {
-  const type = move.move.name.split('-')[0]
-  return `border-${getTypeColor(type)}-500`
+  // Get the move type from the fetched details
+  const moveType = moveDetails.value[move.move.name]?.type || 'normal'
+  const color = getTypeColor(moveType)
+  return `border-${color}-500`
 }
 
-const isPhysicalMove = (move) => {
-  const physicalMoves = ['pound', 'scratch', 'tackle', 'cut']
-  return physicalMoves.includes(move.move.name)
-}
-
-const isSpecialMove = (move) => {
-  const specialMoves = ['ember', 'water-gun', 'thunder-shock', 'confusion']
-  return specialMoves.includes(move.move.name)
-}
-
-const formatItemName = (item) => {
-  return item.split('-').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join(' ')
-}
-
-const playPokemonCry = () => {
-  const cryUrl = `https://play.pokemonshowdown.com/audio/cries/${pokemon.value.name}.mp3`
-  const audio = new Audio(cryUrl)
-  audio.play().catch(e => console.error("Error playing cry:", e))
-}
-
+// Use the custom color mapping from your tailwind.config.js
 const getTypeColor = (type) => {
   const typeColors = {
     normal: 'gray',
@@ -350,4 +369,10 @@ const getTypeColor = (type) => {
   }
   return typeColors[type] || 'gray'
 }
+const playPokemonCry = () => {
+  const cryUrl = `https://play.pokemonshowdown.com/audio/cries/${pokemon.value.name}.mp3`
+  const audio = new Audio(cryUrl)
+  audio.play().catch(e => console.error("Error playing cry:", e))
+}
+
 </script>
