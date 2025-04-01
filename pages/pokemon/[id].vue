@@ -36,12 +36,29 @@
             </div>
 
             <!-- Pokémon Image -->
-            <div class="relative bg-gray-100 rounded-lg p-6 mb-6">
+            <div class="relative bg-gray-100 rounded-lg p-6 mb-6 overflow-hidden">
               <img 
                 :src="pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default" 
                 :alt="pokemon.name"
-                class="w-full h-64 object-contain mx-auto"
+                class="w-full h-64 object-contain mx-auto relative z-10"
               >
+              <!-- Pokéball background -->
+              <div class="absolute inset-0 flex items-center justify-center opacity-10">
+                <svg width="100%" height="100%" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+                  <!-- Outer circle -->
+                  <circle cx="60" cy="60" r="50" stroke="currentColor" stroke-width="10"/>
+                  
+                  <!-- Horizontal divider line -->
+                  <line x1="10" y1="60" x2="110" y2="60" stroke="currentColor" stroke-width="10"/>
+                  
+                  <!-- Center button -->
+                  <circle cx="60" cy="60" r="15" fill="currentColor"/>
+                  <circle cx="60" cy="60" r="10" fill="white"/>
+                  
+                  <!-- Top half fill (optional) -->
+                  <path d="M60,10 A50,50 0 0,1 110,60 L10,60 A50,50 0 0,0 60,10 Z" fill="currentColor" fill-opacity="0.2"/>
+                </svg>
+              </div>
             </div>
 
             <!-- Stats & Info -->
@@ -145,8 +162,8 @@
               <div 
                 v-for="move in filteredMoves" 
                 :key="move.move.name"
-                class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg transition-colors border-l-4"
-                :class="getMoveTypeClass(move)"
+                class="bg-gray-50 hover:bg-gray-100 p-3 rounded-lg transition-colors"
+                :class="getMoveBorderClass(move)"
               >
                 <div class="flex justify-between items-start">
                   <h3 class="font-medium capitalize text-gray-800">
@@ -179,6 +196,7 @@
               </div>
             </div>
           </div>
+           
            <!-- Evolutions -->
            <div v-if="evolutionChain.length > 1" class="bg-white rounded-xl shadow-lg p-6">
               <h2 class="text-2xl font-bold mb-4 flex items-center">
@@ -338,41 +356,38 @@ const filteredMoves = computed(() => {
   })
 })
 
-const getMoveTypeClass = (move) => {
-  // Get the move type from the fetched details
+// Instead of using dynamic class names, use a function that returns the appropriate pre-defined class
+const getMoveBorderClass = (move) => {
   const moveType = moveDetails.value[move.move.name]?.type || 'normal'
-  const color = getTypeColor(moveType)
-  return `border-${color}-500`
+  
+  // Map of type to specific border classes
+  const typeBorderClasses = {
+    normal: 'border-l-4 border-gray-500',
+    fire: 'border-l-4 border-red-500',
+    water: 'border-l-4 border-blue-500',
+    electric: 'border-l-4 border-yellow-500',
+    grass: 'border-l-4 border-green-500',
+    ice: 'border-l-4 border-cyan-500',
+    fighting: 'border-l-4 border-orange-500',
+    poison: 'border-l-4 border-purple-500',
+    ground: 'border-l-4 border-amber-500',
+    flying: 'border-l-4 border-indigo-500',
+    psychic: 'border-l-4 border-pink-500',
+    bug: 'border-l-4 border-lime-500',
+    rock: 'border-l-4 border-stone-500',
+    ghost: 'border-l-4 border-violet-500',
+    dragon: 'border-l-4 border-fuchsia-500',
+    dark: 'border-l-4 border-zinc-500',
+    steel: 'border-l-4 border-slate-500',
+    fairy: 'border-l-4 border-rose-500',
+  }
+  
+  return typeBorderClasses[moveType] || 'border-l-4 border-gray-500'
 }
 
-// Use the custom color mapping from your tailwind.config.js
-const getTypeColor = (type) => {
-  const typeColors = {
-    normal: 'gray',
-    fire: 'red',
-    water: 'blue',
-    electric: 'yellow',
-    grass: 'green',
-    ice: 'cyan',
-    fighting: 'orange',
-    poison: 'purple',
-    ground: 'amber',
-    flying: 'indigo',
-    psychic: 'pink',
-    bug: 'lime',
-    rock: 'stone',
-    ghost: 'violet',
-    dragon: 'fuchsia',
-    dark: 'zinc',
-    steel: 'slate',
-    fairy: 'rose'
-  }
-  return typeColors[type] || 'gray'
-}
 const playPokemonCry = () => {
   const cryUrl = `https://play.pokemonshowdown.com/audio/cries/${pokemon.value.name}.mp3`
   const audio = new Audio(cryUrl)
   audio.play().catch(e => console.error("Error playing cry:", e))
 }
-
 </script>

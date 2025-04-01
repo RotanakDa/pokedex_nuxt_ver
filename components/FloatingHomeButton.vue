@@ -5,7 +5,7 @@
       aria-label="Return to homepage"
     >
       <img 
-        src="/assets/images/pokemon-logo.png" 
+        src="/assets/images/Pokeballver02.png" 
         alt="Home"
         class="h-8 w-auto"
       >

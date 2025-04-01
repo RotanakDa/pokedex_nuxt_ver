@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./pages/pokemon/[id].vue",
+    './pages/pokemon/[id].vue',
   ],
   theme: {
     extend: {colors: {

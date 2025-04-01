@@ -64,6 +64,11 @@
                 </NuxtLink>
               </div>
             </li>
+            <br>
+            <div class="">
+              <h2 class="text-md font-bold text-gray-800">version 1.0.4</h2>
+            </div>
+
           </ul>
         </nav>
       </aside>

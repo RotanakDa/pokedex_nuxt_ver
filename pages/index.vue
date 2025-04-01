@@ -16,7 +16,7 @@
         </div>
         <div class="md:w-1/2 relative">
           <img 
-            src="/assets/images/pokemon-logo.png" 
+            src="/assets/images/Pokeballver01.png" 
             alt="Logo"
             class="w-48 h-48 mx-auto md:ml-auto transform hover:scale-90 transition-transform duration-300"
           >

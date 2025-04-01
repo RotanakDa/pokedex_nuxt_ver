@@ -15,8 +15,19 @@
         class="h-40 w-40 object-contain transform group-hover:scale-110 transition-transform duration-300 z-10"
       >
       <div class="absolute inset-0 flex items-center justify-center opacity-10">
-        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="200" height="200" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Pokéball base -->
           <circle cx="60" cy="60" r="50" stroke="currentColor" stroke-width="10"/>
+          
+          <!-- Horizontal divider line -->
+          <line x1="10" y1="60" x2="110" y2="60" stroke="currentColor" stroke-width="10"/>
+          
+          <!-- Center circle -->
+          <circle cx="60" cy="60" r="15" fill="currentColor"/>
+          <circle cx="60" cy="60" r="10" fill="white"/>
+          
+          <!-- Top half fill -->
+          <path d="M60,10 A50,50 0 0,1 110,60 L10,60 A50,50 0 0,0 60,10 Z" fill="currentColor" fill-opacity="0.2"/>
         </svg>
       </div>
     </div>
