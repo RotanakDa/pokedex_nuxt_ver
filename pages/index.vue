@@ -18,7 +18,7 @@
           <img 
             src="/assets/images/pokemon-logo.png" 
             alt="Logo"
-            class="w-64 h-64 mx-auto md:ml-auto transform hover:scale-110 transition-transform duration-300"
+            class="w-48 h-48 mx-auto md:ml-auto transform hover:scale-90 transition-transform duration-300"
           >
         </div>
       </div>
