@@ -46,6 +46,27 @@
 
             <!-- Stats & Info -->
             <PokemonStatsChart :stats="pokemon.stats" />
+
+             <!-- Additional Info -->
+             <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <h3 class="font-semibold text-gray-600">Height</h3>
+                  <p>{{ pokemon.height / 10 }} m</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Weight</h3>
+                  <p>{{ pokemon.weight / 10 }} kg</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Base Exp</h3>
+                  <p>{{ pokemon.base_experience }}</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Capture Rate</h3>
+                  <p>{{ species.capture_rate || 'N/A' }}</p>
+                </div>
+              </div>
+              
             <!-- About Section -->
           <div class="bg-white rounded-xl shadow-lg p-2">
             <h2 class="text-2xl font-bold mb-4 flex items-center">
