@@ -21,7 +21,7 @@
               'text-gray-600': effectiveness === 0
             }"
           >
-            {{ effectiveness === 0 ? 'Immune' : `${effectiveness}x` }}
+            {{ effectiveness === 0 ? '0x' : `${effectiveness}x` }}
           </span>
         </div>
       </div>
