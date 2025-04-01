@@ -144,59 +144,45 @@
               </div>
             </div>
           </div>
-          <!-- Enhanced Evolution Chain -->
-          <div v-if="evolutionChain.length > 1" class="bg-white rounded-xl shadow-lg p-6">
-            <h2 class="text-2xl font-bold mb-4 flex items-center">
-              <span class="text-green-500 mr-2">⬆️</span>
-              Evolution Chain
-            </h2>
-
-            <div class="space-y-6">
-              <div 
-                v-for="(evolution, index) in evolutionChain" 
-                :key="evolution.id"
-                class="flex flex-row sm:flex items-center"
-              >
-                <!-- Current Evolution -->
-                <NuxtLink 
-                  :to="/pokemon/${evolution.id}" 
-                  class="group flex flex-col items-center p-4"
+           <!-- Evolutions -->
+           <div v-if="evolutionChain.length > 1" class="bg-white rounded-xl shadow-lg p-6">
+              <h2 class="text-2xl font-bold mb-4 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                Evolution Chain
+              </h2>
+              
+              <div class="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+                <div 
+                  v-for="(evo, index) in evolutionChain" 
+                  :key="evo.name"
+                  class="flex flex-col items-center"
                 >
-                  <div class="relative p-4 bg-gray-100 rounded-full group-hover:bg-gray-200 transition-colors">
-                    <img 
-                      :src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evolution.id}.png" 
-                      :alt="evolution.name"
-                      class="w-24 h-24 object-contain group-hover:scale-110 transition-transform"
-                    >
-                  </div>
-                  <p class="mt-2 text-center font-medium capitalize text-gray-800 group-hover:text-red-600 transition-colors">
-                    {{ evolution.name }}
-                  </p>
-                </NuxtLink>
-
-                <!-- Evolution Details -->
-                <div v-if="index < evolutionChain.length - 1" class="mx-4 my-4 sm:my-0 flex flex-col items-center">
-                  <div class="bg-gray-100 rounded-lg p-3 text-center max-w-xs">
-                    <p class="text-sm font-medium text-gray-700">
-                      <span v-if="evolutionDetails[index].min_level">Level {{ evolutionDetails[index].min_level }}</span>
-                      <span v-if="evolutionDetails[index].item"> + {{ formatItemName(evolutionDetails[index].item) }}</span>
-                      <span v-if="evolutionDetails[index].needs_trade"> (Trade)</span>
-                      <span v-if="evolutionDetails[index].time_of_day"> at {{ evolutionDetails[index].time_of_day }}</span>
-                      <span v-if="evolutionDetails[index].needs_friendship"> (High Friendship)</span>
+                  <NuxtLink :to="`/pokemon/${evo.name}`" class="group">
+                    <div class="relative p-4 bg-gray-100 rounded-full group-hover:bg-gray-200 transition-colors">
+                      <img 
+                        :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${evo.id}.png`" 
+                        :alt="evo.name"
+                        class="w-24 h-24 object-contain group-hover:scale-110 transition-transform"
+                      >
+                    </div>
+                    <p class="mt-2 text-center font-medium capitalize text-gray-800 group-hover:text-red-600 transition-colors">
+                      {{ evo.name }}
                     </p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto text-gray-400 my-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  </NuxtLink>
+                  
+                  <div v-if="index < evolutionChain.length - 1" class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
-                    <p v-if="evolutionDetails[index].trigger" class="text-xs text-gray-500 capitalize">
-                      {{ evolutionDetails[index].trigger.replace('-', ' ') }}
-                    </p>
+                    <span class="text-xs text-gray-500 ml-1" v-if="evolutionDetails[index]">
+                      Lv. {{ evolutionDetails[index].min_level || '?' }}
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-
-
         </div>
       </div>
     </div>
