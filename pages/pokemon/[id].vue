@@ -173,25 +173,33 @@
                     {{ move.version_group_details[0].move_learn_method.name }}
                   </span>
                 </div>
-                <div class="flex items-center mt-2 text-xs text-gray-500">
-                  <span v-if="move.version_group_details[0].level_learned_at > 0" class="mr-2">
+                <div class="flex flex-wrap items-center mt-2 text-xs text-gray-500 gap-2">
+                  <span v-if="move.version_group_details[0].level_learned_at > 0">
                     Lv. {{ move.version_group_details[0].level_learned_at }}
                   </span>
-                  <span class="flex items-center">
-                    <span v-if="moveDetails[move.move.name]?.damage_class === 'physical'" class="flex items-center mr-2">
-                      <span class="text-red-500 mr-1">💪</span>
-                      Physical
-                    </span>
-                    <span v-else-if="moveDetails[move.move.name]?.damage_class === 'special'" class="flex items-center mr-2">
-                      <span class="text-blue-500 mr-1">✨</span>
-                      Special
-                    </span>
-                    <span v-else-if="moveDetails[move.move.name]?.damage_class === 'status'" class="flex items-center">
-                      <span class="text-green-500 mr-1">⚙️</span>
-                      Status
-                    </span>
-                    <span v-else class="text-gray-400">Loading...</span>
+                  
+                  <!-- Damage Class -->
+                  <span v-if="moveDetails[move.move.name]?.damage_class === 'physical'" class="flex items-center">
+                    <span class="text-red-500 mr-1">💪</span>
+                    Physical
                   </span>
+                  <span v-else-if="moveDetails[move.move.name]?.damage_class === 'special'" class="flex items-center">
+                    <span class="text-blue-500 mr-1">✨</span>
+                    Special
+                  </span>
+                  <span v-else-if="moveDetails[move.move.name]?.damage_class === 'status'" class="flex items-center">
+                    <span class="text-green-500 mr-1">⚙️</span>
+                    Status
+                  </span>
+                  <span v-else class="text-gray-400">Loading...</span>
+                  
+                  <!-- Move Type Badge -->
+                  <TypeBadge class="justify-self-end"
+                    v-if="moveDetails[move.move.name]?.type" 
+                    :type="moveDetails[move.move.name].type"
+                    size="xs"
+                  />
+                  <span v-else class="text-gray-400">Loading type...</span>
                 </div>
               </div>
             </div>
