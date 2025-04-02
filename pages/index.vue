@@ -4,25 +4,51 @@
     <!-- <FloatingHomeButton /> -->
     <FloatingSearchButton />
     <!-- Hero Section -->
-    <div class="bg-gradient-to-b from-red-500 to-red-800 shadow-lg relative overflow-hidden">
-      <div class="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center">
-        <div class="md:w-1/2 z-10">
-          <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Gotta Catch 'Em All!</h1>
-          <p class="text-xl text-white mb-8">Discover your favorite Pokémon and their stats</p>
-          <SearchBar 
-            @search="handleSearch" 
-            @select="handlePokemonSelect"
-          />
-        </div>
-        <div class="md:w-1/2 relative">
-          <img 
-            src="/assets/images/Pokeballver01.png" 
-            alt="Logo"
-            class="w-48 h-48 mx-auto md:ml-auto transform hover:scale-90 transition-transform duration-300"
-          >
-        </div>
+    <div class="bg-gradient-to-br from-red-600 via-red-700 to-red-900 shadow-xl relative overflow-hidden">
+  <!-- Animated floating bubbles -->
+  <div class="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+    <div class="bubble absolute w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl" style="top:20%; left:10%; animation-delay: 0s;"></div>
+    <div class="bubble absolute w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl" style="top:60%; left:80%; animation-delay: 2s;"></div>
+    <div class="bubble absolute w-48 h-48 bg-red-400 rounded-full mix-blend-multiply filter blur-xl" style="top:30%; left:50%; animation-delay: 4s;"></div>
+    <div class="bubble absolute w-56 h-56 bg-white rounded-full mix-blend-multiply filter blur-xl" style="top:80%; left:30%; animation-delay: 1s;"></div>
+    <div class="bubble absolute w-40 h-40 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl" style="top:10%; left:70%; animation-delay: 3s;"></div>
+  </div>
+
+  <div class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center relative z-10">
+    <!-- Text content -->
+    <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+      <h1 class="text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight">
+        <span class="text-yellow-300">Gotta</span> Catch 'Em All!
+      </h1>
+      <p class="text-xl text-red-100 mb-8 max-w-lg">
+        Explore the ultimate Pokémon database. Find stats, abilities, and more for every generation!
+      </p>
+      
+      <!-- Search bar -->
+      <div class="max-w-md mx-auto md:mx-0 transform hover:scale-[1.01] transition-transform duration-200">
+        <SearchBar 
+          @search="handleSearch" 
+          @select="handlePokemonSelect"
+        />
       </div>
     </div>
+
+    <!-- Pokéball image with animation -->
+    <div class="md:w-1/2 flex justify-center relative">
+      <div class="relative group">
+        <img 
+          src="/assets/images/Pokeballver01.png" 
+          alt="Pokéball"
+          class="w-56 h-56 md:w-64 md:h-64 transform transition-all duration-500 group-hover:rotate-12 group-hover:scale-110"
+        >
+        <div class="absolute inset-0 rounded-full bg-yellow-400 opacity-0 group-hover:opacity-20 mix-blend-overlay blur-md transition-opacity duration-300"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Animated divider -->
+  <div class="h-2 bg-gradient-to-r from-yellow-400 via-red-500 to-yellow-400 animate-gradient-x"></div>
+</div>
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
@@ -119,6 +145,100 @@
   </div>
   <MainFooter />
 </template>
+
+<style>
+  @keyframes float {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(50px, -30px) rotate(5deg);
+    }
+    50% {
+      transform: translate(100px, 20px) rotate(0deg);
+    }
+    75% {
+      transform: translate(30px, 50px) rotate(-5deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+  
+  @keyframes float2 {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(-60px, 40px) rotate(-5deg);
+    }
+    50% {
+      transform: translate(-30px, -20px) rotate(0deg);
+    }
+    75% {
+      transform: translate(40px, 30px) rotate(5deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+  
+  @keyframes float3 {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(70px, 20px) rotate(3deg);
+    }
+    50% {
+      transform: translate(-40px, -30px) rotate(0deg);
+    }
+    75% {
+      transform: translate(-20px, 50px) rotate(-3deg);
+    }
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+  }
+  
+  @keyframes gradient-x {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+  
+  .bubble {
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  
+  .bubble:nth-child(1) {
+    animation-name: float;
+  }
+  
+  .bubble:nth-child(2) {
+    animation-name: float2;
+  }
+  
+  .bubble:nth-child(3) {
+    animation-name: float3;
+  }
+  
+  .bubble:nth-child(4) {
+    animation-name: float;
+    animation-direction: reverse;
+  }
+  
+  .bubble:nth-child(5) {
+    animation-name: float2;
+    animation-direction: reverse;
+  }
+  
+  .animate-gradient-x { 
+    background-size: 200% auto;
+    animation: gradient-x 3s linear infinite; 
+  }
+</style>
 
 <script setup>
 import { ref } from 'vue'

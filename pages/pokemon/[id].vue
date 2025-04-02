@@ -3,7 +3,7 @@
     <AppDrawer />
     <FloatingHomeButton />
     <div class="container mx-auto px-4 py-8">
-      <div v-if="loading" class="text-center py-12">
+      <div v-if="loading" class="text-center py-12 mx-auto justify-center items-center">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-500 mx-auto"></div>
       </div>
 
