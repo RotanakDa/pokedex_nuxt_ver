@@ -42,16 +42,23 @@
       let color = 'bg-red-500'
       let textColor = 'text-red-600'
       
-      if (value >= 100) {
-        color = 'bg-green-500'
-        textColor = 'text-green-600'
-      } else if (value >= 75) {
+      if (value >= 120) {
         color = 'bg-blue-500'
+        textColor = 'text-green-600'
+      } else if (value >= 100) {
+        color = 'bg-green-500'
         textColor = 'text-blue-600'
-      } else if (value >= 50) {
+      } else if (value >= 75) {
         color = 'bg-yellow-500'
         textColor = 'text-yellow-600'
+      } else if (value >= 50) {
+        color = 'bg-orange-500'
+        textColor = 'text-blue-600'
+      } else if (value >= 25) {
+        color = 'bg-red-500'
+        textColor = 'text-yellow-600'
       }
+      
       
       return {
         name: statNames[stat.stat.name] || stat.stat.name,

@@ -64,33 +64,9 @@
             <!-- Stats & Info -->
             <PokemonStatsChart :stats="pokemon.stats" />
 
-             <!-- Additional Info -->
-             <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <h3 class="font-semibold text-gray-600">Height</h3>
-                  <p>{{ pokemon.height / 10 }} m</p>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-gray-600">Weight</h3>
-                  <p>{{ pokemon.weight / 10 }} kg</p>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-gray-600">Base Exp</h3>
-                  <p>{{ pokemon.base_experience }}</p>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-gray-600">Capture Rate</h3>
-                  <p>{{ species.capture_rate || 'N/A' }}</p>
-                </div>
-              </div>
-          </div>
-        </div>
-
-        <!-- Right Column -->
-        <div class="lg:col-span-2 space-y-6">
-
-          <!-- About Section -->
-          <div class="bg-white rounded-xl shadow-lg p-6">
+            <br>
+              <!-- About Section -->
+            <div>
               <h2 class="text-2xl font-bold mb-4 flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -132,7 +108,33 @@
                   </div>
                 </div>
               </div>
+              <!-- Additional Info -->
+             <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <h3 class="font-semibold text-gray-600">Height</h3>
+                  <p>{{ pokemon.height / 10 }} m</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Weight</h3>
+                  <p>{{ pokemon.weight / 10 }} kg</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Base Exp</h3>
+                  <p>{{ pokemon.base_experience }}</p>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-600">Capture Rate</h3>
+                  <p>{{ species.capture_rate || 'N/A' }}</p>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="lg:col-span-2 space-y-6">
+
+          
           
           <PokemonWeakness :types="pokemon.types.map(t => t.type.name)" />
 
